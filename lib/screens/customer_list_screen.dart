@@ -10,7 +10,7 @@ class CustomerListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FA),
+      backgroundColor: const Color(0xFFF7F8FB),
 
       body: SafeArea(
         child: Padding(
