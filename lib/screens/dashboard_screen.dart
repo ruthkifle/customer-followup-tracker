@@ -1,6 +1,7 @@
+import 'package:customer_followup_tracker/services/customer_storage.dart';
 import 'package:flutter/material.dart';
 
-import '../data/customer_data.dart';
+//import '../data/customer_data.dart';
 import '../widgets/customer_card.dart';
 import '../widgets/bottom_nav_card.dart';
 import '../widgets/StatCard.dart';
@@ -10,7 +11,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customers = CustomerData.customers;
+    final customers = CustomerStorage.getCustomers();
 
     final totalCustomers = customers.length;
 

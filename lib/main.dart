@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'screens/dashboard_screen.dart';
 import 'screens/customer_list_screen.dart';
 import 'screens/add_customer_screen.dart';
 import 'screens/customer_detail_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  await Hive.openBox('customersBox');
+
   runApp(const CustomerTrackerApp());
 }
 

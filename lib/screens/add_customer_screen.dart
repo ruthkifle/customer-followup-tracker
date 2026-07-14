@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_card.dart';
 import '../models/customer.dart';
-import '../data/customer_data.dart';
+import '../services/customer_storage.dart';
 
 class AddCustomerScreen extends StatefulWidget {
   const AddCustomerScreen({super.key});
@@ -52,7 +52,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
     }
   }
 
-  void saveCustomer() {
+  void saveCustomer() async {
     if (nameController.text.isEmpty ||
         phoneController.text.isEmpty ||
         companyController.text.isEmpty ||
@@ -76,7 +76,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
       createdAt: DateTime.now(),
     );
 
-    CustomerData.addCustomer(newCustomer);
+    await CustomerStorage.addCustomer(newCustomer);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
