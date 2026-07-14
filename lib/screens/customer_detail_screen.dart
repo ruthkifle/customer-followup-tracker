@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../models/customer.dart';
 
 class CustomerDetailScreen extends StatelessWidget {
   const CustomerDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customer = ModalRoute.of(context)!.settings.arguments as Customer;
     return Scaffold(
       backgroundColor: const Color(0xFFF7F8FA),
 
@@ -30,11 +32,11 @@ class CustomerDetailScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(color: const Color(0xFFE5E7EB)),
                 ),
-                child: const Column(
+                child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Abebe Kebede',
+                      customer.name,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -44,7 +46,7 @@ class CustomerDetailScreen extends StatelessWidget {
                     SizedBox(height: 6),
 
                     Text(
-                      'ABC Real Estate',
+                      customer.company,
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black54,
@@ -53,7 +55,7 @@ class CustomerDetailScreen extends StatelessWidget {
 
                     SizedBox(height: 12),
 
-                    _StatusBadge(status: 'Interested'),
+                    _StatusBadge(status: customer.status),
                   ],
                 ),
               ),
@@ -70,18 +72,18 @@ class CustomerDetailScreen extends StatelessWidget {
 
               const SizedBox(height: 12),
 
-              const _DetailRow(
+              _DetailRow(
                 icon: Icons.phone_outlined,
                 title: 'Phone',
-                value: '+251 912 345 678',
+                value: customer.phone,
               ),
 
               const SizedBox(height: 12),
 
-              const _DetailRow(
+              _DetailRow(
                 icon: Icons.calendar_today_outlined,
                 title: 'Follow-up Date',
-                value: 'June 12, 2025',
+                value: '${customer.followUpDate.day}/${customer.followUpDate.month}/${customer.followUpDate.year}',
               ),
 
               const SizedBox(height: 24),
@@ -104,8 +106,7 @@ class CustomerDetailScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: const Color(0xFFE5E7EB)),
                 ),
-                child: const Text(
-                  'Wants a 2-bedroom apartment near Bole. Asked for price options and wants a follow-up call this week.',
+                child: Text( customer.notes,
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.black87,

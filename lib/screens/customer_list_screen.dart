@@ -82,7 +82,11 @@ class CustomerListScreen extends StatelessWidget {
                         followUp:
                         '${customer.followUpDate.day}/${customer.followUpDate.month}/${customer.followUpDate.year}',
                         onTap: () {
-                          Navigator.pushNamed(context, '/customer-detail');
+                          Navigator.pushNamed(
+                              context,
+                              '/customer-detail',
+                            arguments: customer
+                          );
                         },
                       ),
                     );
