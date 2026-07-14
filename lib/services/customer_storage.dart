@@ -9,6 +9,9 @@ class CustomerStorage {
       return Customer.fromMap(Map<String, dynamic>.from(data));
     }).toList();
   }
+  static Future<void> updateCustomer(Customer customer) async {
+    await _box.put(customer.id, customer.toMap());
+  }
 
   static Future<void> addCustomer(Customer customer) async {
     await _box.put(customer.id, customer.toMap());

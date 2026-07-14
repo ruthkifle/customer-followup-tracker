@@ -18,6 +18,28 @@ class Customer {
     required this.notes,
     required this.createdAt,
   });
+  Customer copyWith({
+    String? id,
+    String? name,
+    String? phone,
+    String? company,
+    String? status,
+    DateTime? followUpDate,
+    String? notes,
+    DateTime? createdAt,
+  }) {
+    return Customer(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      phone: phone ?? this.phone,
+      company: company ?? this.company,
+      status: status ?? this.status,
+      followUpDate: followUpDate ?? this.followUpDate,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

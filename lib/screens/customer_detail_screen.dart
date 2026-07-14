@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/customer.dart';
+import '../services/customer_storage.dart';
 
 class CustomerDetailScreen extends StatelessWidget {
   const CustomerDetailScreen({super.key});
@@ -135,7 +136,17 @@ class CustomerDetailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () {},
+                    onPressed: () async {
+                      final updatedCustomer = customer.copyWith(status: 'Closed');
+
+                      await CustomerStorage.updateCustomer(updatedCustomer);
+
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/customers',
+                            (route) => false,
+                      );
+                    },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.green,
                     side: const BorderSide(color: Colors.green),
@@ -150,7 +161,15 @@ class CustomerDetailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () {},
+                    onPressed: () async {
+                      await CustomerStorage.deleteCustomer(customer.id);
+
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/customers',
+                            (route) => false,
+                      );
+                    },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.red,
                     side: const BorderSide(color: Colors.red),
@@ -232,7 +251,7 @@ class _StatusBadge extends StatelessWidget {
         vertical: 5,
       ),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.15),
+        color: Colors.green.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
