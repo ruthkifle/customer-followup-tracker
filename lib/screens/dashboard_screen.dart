@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../data/customer_data.dart';
 import '../widgets/customer_card.dart';
 import '../widgets/bottom_nav_card.dart';
 import '../widgets/StatCard.dart';
@@ -9,6 +10,26 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customers = CustomerData.customers;
+
+    final totalCustomers = customers.length;
+
+    final interestedLeads = customers
+        .where((customer) => customer.status == 'Interested')
+        .length;
+
+    final closedDeals = customers
+        .where((customer) => customer.status == 'Closed')
+        .length;
+
+    final today = DateTime.now();
+
+    final followUpsToday = customers.where((customer) {
+      return customer.followUpDate.day == today.day &&
+          customer.followUpDate.month == today.month &&
+          customer.followUpDate.year == today.year;
+    }).toList();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -45,11 +66,11 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(height: 26),
 
             Row(
-              children: const [
+              children:  [
                 Expanded(
                   child: StatCard(
                     title: 'Total Customers',
-                    value: '24',
+                    value: totalCustomers.toString(),
                     icon: Icons.people_alt_outlined,
                   ),
                 ),
@@ -57,7 +78,7 @@ class DashboardScreen extends StatelessWidget {
                 Expanded(
                   child: StatCard(
                     title: 'Follow-ups Today',
-                    value: '5',
+                    value: followUpsToday.length.toString(),
                     icon: Icons.calendar_month,
                   ),
                 ),
@@ -67,11 +88,11 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(height: 12),
 
             Row(
-              children: const [
+              children: [
                 Expanded(
                   child: StatCard(
                     title: 'Interested Leads',
-                    value: '8',
+                    value: interestedLeads.toString(),
                     icon: Icons.star_border,
                   ),
                 ),
@@ -79,8 +100,8 @@ class DashboardScreen extends StatelessWidget {
                 Expanded(
                   child: StatCard(
                     title: 'Closed Deals',
-                    value: '4',
-                    icon: Icons.done,
+                    value: closedDeals.toString(),
+                    icon: Icons.check_circle_outline,
                   ),
                 ),
               ],
@@ -113,28 +134,38 @@ class DashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            CustomerCard(
-              name: 'Abebe Kebede',
-              company: 'ABC Real Estate',
-              status: 'Interested',
-              followUp: 'Call today',
-              compact: true,
-              onTap: () {
-                Navigator.pushNamed(context, '/customer-detail');
-              },
-            ),
+            Expanded(
+              child: followUpsToday.isEmpty
+                  ? const Center(
+                child: Text(
+                  'No follow-ups today',
+                  style: TextStyle(color: Colors.black54),
+                ),
+              )
+                  : ListView.builder(
+                itemCount: followUpsToday.length,
+                itemBuilder: (context, index) {
+                  final customer = followUpsToday[index];
 
-            const SizedBox(height: 12),
-
-            CustomerCard(
-              name: 'Hana Tadesse',
-              company: 'Fashion Shop',
-              status: 'Negotiating',
-              followUp: 'Send offer',
-              compact: true,
-              onTap: () {
-                Navigator.pushNamed(context, '/customer-detail');
-              },
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: CustomerCard(
+                      name: customer.name,
+                      company: customer.company,
+                      status: customer.status,
+                      followUp: 'Today',
+                      compact: true,
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/customer-detail',
+                          arguments: customer,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
