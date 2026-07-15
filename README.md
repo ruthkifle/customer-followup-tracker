@@ -128,3 +128,20 @@ While building this project, I practiced:
 ## Status
 
 This project is a working local-storage MVP built with Flutter and Hive.
+
+# Screenshots
+
+## Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+## Customer List
+![Customer List](screenshots/customer_list.png)
+
+## Add Customer
+![Add Customer](screenshots/add_customer.png)
+
+## Customer Detail
+![Customer Detail](screenshots/customer_detail.png)
+
+## Edit Customer
+![Edit Customer](screenshots/edit_customer.png)
