@@ -2,8 +2,6 @@ import 'package:customer_followup_tracker/services/customer_storage.dart';
 import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_card.dart';
 import '../widgets/customer_card.dart';
-import '../services/customer_storage.dart';
-import '../widgets/customer_card.dart';
 
 class CustomerListScreen extends StatelessWidget {
   const CustomerListScreen({super.key});

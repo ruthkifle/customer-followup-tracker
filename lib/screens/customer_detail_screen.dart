@@ -5,6 +5,51 @@ import '../services/customer_storage.dart';
 class CustomerDetailScreen extends StatelessWidget {
   const CustomerDetailScreen({super.key});
 
+  Future<void> changeStatus(BuildContext context, Customer customer) async {
+    final statuses = [
+      'New',
+      'Contacted',
+      'Interested',
+      'Negotiating',
+      'Closed',
+      'Lost',
+    ];
+
+    final selectedStatus = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Change Status'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: statuses.map((status) {
+              return ListTile(
+                title: Text(status),
+                onTap: () {
+                  Navigator.pop(context, status);
+                },
+              );
+            }).toList(),
+          ),
+        );
+      },
+    );
+
+    if (selectedStatus != null) {
+      final updatedCustomer = customer.copyWith(status: selectedStatus);
+
+      await CustomerStorage.updateCustomer(updatedCustomer);
+
+      if (!context.mounted) return;
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/customers',
+            (route) => false,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final customer = ModalRoute.of(context)!.settings.arguments as Customer;
@@ -136,23 +181,15 @@ class CustomerDetailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                    onPressed: () async {
-                      final updatedCustomer = customer.copyWith(status: 'Closed');
-
-                      await CustomerStorage.updateCustomer(updatedCustomer);
-
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        '/customers',
-                            (route) => false,
-                      );
-                    },
+                  onPressed: () {
+                    changeStatus(context, customer);
+                  },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.green,
-                    side: const BorderSide(color: Colors.green),
+                    foregroundColor: Colors.blue,
+                    side: const BorderSide(color: Colors.blue),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  child: const Text('Mark as Closed'),
+                  child: const Text('Change Status'),
                 ),
               ),
 
