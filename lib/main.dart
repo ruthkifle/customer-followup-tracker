@@ -1,3 +1,4 @@
+import 'package:customer_followup_tracker/screens/edit_customer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -36,6 +37,7 @@ class CustomerTrackerApp extends StatelessWidget {
         '/customers': (context) => const CustomerListScreen(),
         '/add-customer': (context) => const AddCustomerScreen(),
         '/customer-detail': (context) => const CustomerDetailScreen(),
+        '/edit-customer' : (context) => const EditCustomerScreen(),
       },
     );
   }
