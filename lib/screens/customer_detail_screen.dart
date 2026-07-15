@@ -57,9 +57,13 @@ class CustomerDetailScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF7F8FA),
 
       appBar: AppBar(
-        title: const Text('Customer Details'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        title: const Text('Customer Details',
+          style:TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24
+          ),),
+        backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,
         elevation: 0,
       ),
 

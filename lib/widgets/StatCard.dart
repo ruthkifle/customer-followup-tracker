@@ -5,12 +5,14 @@ class StatCard extends StatelessWidget {
   final String title;
   final String value;
   final IconData icon;
+  final Color iconColor;
 
   const StatCard({
     super.key,
     required this.title,
     required this.value,
     required this.icon,
+    required this.iconColor
   });
 
   @override
@@ -45,7 +47,8 @@ class StatCard extends StatelessWidget {
               ),
               Icon(
                 icon,
-                size: 32
+                size: 32,
+                color: iconColor,
               ),
             ],
           )

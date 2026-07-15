@@ -16,7 +16,7 @@ class BottomNavCard extends StatelessWidget {
     } else if (index == 1) {
       Navigator.pushReplacementNamed(context, '/customers');
     } else if (index == 2) {
-      Navigator.pushReplacementNamed(context, '/add-customer');
+      Navigator.pushNamed(context, '/add-customer');
     }
   }
 
@@ -32,7 +32,7 @@ class BottomNavCard extends StatelessWidget {
           border: Border.all(color: const Color(0xFFE5E7EB)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -91,14 +91,14 @@ class _BottomNavItem extends StatelessWidget {
           Icon(
             icon,
             color: itemColor,
-            size: 26,
+            size: 32,
           ),
           const SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(
               color: itemColor,
-              fontSize: 12,
+              fontSize: 16,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),

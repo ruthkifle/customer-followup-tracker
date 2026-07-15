@@ -31,7 +31,7 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
 
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -71,7 +71,7 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
                   },
                   decoration: const InputDecoration(
                     icon: Icon(Icons.search),
-                    hintText: 'Search by name, company, status, or phone...',
+                    hintText: 'Search ...',
                     border: InputBorder.none,
                   ),
                 ),

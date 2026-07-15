@@ -71,7 +71,7 @@ class CustomerCard extends StatelessWidget {
                     name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 17,
                     ),
                   ),
 
@@ -81,7 +81,7 @@ class CustomerCard extends StatelessWidget {
                     company,
                     style: const TextStyle(
                       color: Colors.black54,
-                      fontSize: 13,
+                      fontSize: 14,
                     ),
                   ),
 
@@ -100,7 +100,7 @@ class CustomerCard extends StatelessWidget {
                           'Follow-up: $followUp',
                           style: const TextStyle(
                             color: Colors.black54,
-                            fontSize: 13,
+                            fontSize: 14,
                           ),
                         ),
                       ],
@@ -119,14 +119,14 @@ class CustomerCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.15),
+                      color: statusColor.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       status,
                       style: TextStyle(
                         color: statusColor,
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -138,7 +138,7 @@ class CustomerCard extends StatelessWidget {
                     followUp,
                     style: const TextStyle(
                       color: Colors.black54,
-                      fontSize: 12,
+                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -152,14 +152,14 @@ class CustomerCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.15),
+                      color: statusColor.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       status,
                       style: TextStyle(
                         color: statusColor,
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -170,7 +170,7 @@ class CustomerCard extends StatelessWidget {
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
-                    color: Colors.black38,
+                    color: Colors.black54,
                   ),
                 ],
               ),

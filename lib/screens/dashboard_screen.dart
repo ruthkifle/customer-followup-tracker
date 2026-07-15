@@ -1,7 +1,6 @@
 import 'package:customer_followup_tracker/services/customer_storage.dart';
 import 'package:flutter/material.dart';
 
-//import '../data/customer_data.dart';
 import '../widgets/customer_card.dart';
 import '../widgets/bottom_nav_card.dart';
 import '../widgets/StatCard.dart';
@@ -33,12 +32,12 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 28),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Good morning, Ruth 👋',
+              'Good morning, User 👋',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black54,
@@ -73,6 +72,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'Total Customers',
                     value: totalCustomers.toString(),
                     icon: Icons.people_alt_outlined,
+                    iconColor: Colors.blue,
                   ),
                 ),
                 SizedBox(width: 12),
@@ -81,6 +81,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'Follow-ups Today',
                     value: followUpsToday.length.toString(),
                     icon: Icons.calendar_month,
+                    iconColor: Colors.blue,
                   ),
                 ),
               ],
@@ -95,6 +96,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'Interested Leads',
                     value: interestedLeads.toString(),
                     icon: Icons.star_border,
+                    iconColor: Colors.amberAccent,
                   ),
                 ),
                 SizedBox(width: 12),
@@ -103,6 +105,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'Closed Deals',
                     value: closedDeals.toString(),
                     icon: Icons.check_circle_outline,
+                    iconColor: Colors.green,
                   ),
                 ),
               ],

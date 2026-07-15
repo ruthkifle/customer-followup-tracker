@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/bottom_nav_card.dart';
 import '../models/customer.dart';
 import '../services/customer_storage.dart';
 
@@ -86,47 +85,94 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
 
     Navigator.pushReplacementNamed(context, '/customers');
   }
+  InputDecoration customInputDecoration(String hintText) {
+    return InputDecoration(
+      hintText: hintText,
+      filled: true,
+      fillColor: Colors.white,
+
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 14,
+      ),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(
+          color: Color(0xFFE5E7EB),
+          width: 1,
+        ),
+      ),
+
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(
+          color: Colors.blue,
+          width: 2,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF7F8FA),
-
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Add Customer',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.blue,
+                      size: 28,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+
+                  const SizedBox(width: 16),
+
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Add Customer',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        SizedBox(height: 4),
+
+                        Text(
+                          'Create a new lead or customer.',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
 
-              const SizedBox(height: 4),
-
-              const Text(
-                'Create a new customer lead',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black54,
-                ),
-              ),
-
-              const SizedBox(height: 24),
+              const SizedBox(height: 18),
 
               _InputLabel(label: 'Name'),
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter customer name',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(),
-                ),
+                decoration: customInputDecoration('Enter customer name'),
               ),
 
               const SizedBox(height: 16),
@@ -134,13 +180,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
               _InputLabel(label: 'Phone Number'),
               TextField(
                 controller: phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  hintText: '+251...',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(),
-                ),
+                decoration: customInputDecoration('+251...'),
               ),
 
               const SizedBox(height: 16),
@@ -148,12 +188,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
               _InputLabel(label: 'Company / Business'),
               TextField(
                 controller: companyController,
-                decoration: const InputDecoration(
-                  hintText: 'Business name',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(),
-                ),
+                decoration: customInputDecoration('Business name')
               ),
 
               const SizedBox(height: 16),
@@ -161,11 +196,18 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
               _InputLabel(label: 'Lead Status'),
               DropdownButtonFormField<String>(
                 value: selectedStatus,
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(),
+                decoration: customInputDecoration('Select status'),
+                dropdownColor: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                icon: const Icon(
+                  Icons.keyboard_arrow_down,
+                  color: Colors.blue,
                 ),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+                menuMaxHeight: 250,
                 items: statuses.map((status) {
                   return DropdownMenuItem(
                     value: status,
@@ -188,21 +230,37 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                 onTap: pickFollowUpDate,
                 child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Colors.black38),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    selectedDate == null
-                        ? 'Select date'
-                        : '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}',
-                    style: TextStyle(
-                      color: selectedDate == null
-                          ? Colors.black54
-                          : Colors.black,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: const Color(0xFFE5E7EB),
+                      width: 1,
                     ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.calendar_today_outlined,
+                        size: 20,
+                        color: Colors.black54,
+                      ),
+
+                      const SizedBox(width: 10),
+
+                      Text(
+                        selectedDate == null
+                            ? 'Select date'
+                            : '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}',
+                        style: TextStyle(
+                          color: selectedDate == null ? Colors.black54 : Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -213,12 +271,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
               TextField(
                 controller: notesController,
                 maxLines: 4,
-                decoration: const InputDecoration(
-                  hintText: 'Write notes...',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(),
-                ),
+                decoration: customInputDecoration('Write notes...')
               ),
 
               const SizedBox(height: 24),
@@ -241,10 +294,6 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
           ),
         ),
       ),
-
-      bottomNavigationBar: const BottomNavCard(
-        currentIndex: 2,
-      ),
     );
   }
 }
@@ -264,6 +313,7 @@ class _InputLabel extends StatelessWidget {
         label,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
+          fontSize: 16
         ),
       ),
     );
