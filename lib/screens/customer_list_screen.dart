@@ -1,14 +1,31 @@
-import 'package:customer_followup_tracker/services/customer_storage.dart';
 import 'package:flutter/material.dart';
-import '../widgets/bottom_nav_card.dart';
+import '../services/customer_storage.dart';
 import '../widgets/customer_card.dart';
+import '../widgets/bottom_nav_card.dart';
 
-class CustomerListScreen extends StatelessWidget {
+class CustomerListScreen extends StatefulWidget {
   const CustomerListScreen({super.key});
+
+  @override
+  State<CustomerListScreen> createState() => _CustomerListScreenState();
+}
+
+class _CustomerListScreenState extends State<CustomerListScreen> {
+  String searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
     final customers = CustomerStorage.getCustomers();
+
+    final filteredCustomers = customers.where((customer) {
+      final query = searchQuery.toLowerCase();
+
+      return customer.name.toLowerCase().contains(query) ||
+          customer.company.toLowerCase().contains(query) ||
+          customer.status.toLowerCase().contains(query) ||
+          customer.phone.toLowerCase().contains(query);
+    }).toList();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF7F8FA),
 
@@ -46,10 +63,15 @@ class CustomerListScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: const Color(0xFFE5E7EB)),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      searchQuery = value;
+                    });
+                  },
+                  decoration: const InputDecoration(
                     icon: Icon(Icons.search),
-                    hintText: 'Search customer...',
+                    hintText: 'Search by name, company, status, or phone...',
                     border: InputBorder.none,
                   ),
                 ),
@@ -75,10 +97,17 @@ class CustomerListScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                 )
+                    : filteredCustomers.isEmpty
+                    ? const Center(
+                  child: Text(
+                    'No matching customers found.',
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                )
                     : ListView.builder(
-                  itemCount: customers.length,
+                  itemCount: filteredCustomers.length,
                   itemBuilder: (context, index) {
-                    final customer = customers[index];
+                    final customer = filteredCustomers[index];
 
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12),
